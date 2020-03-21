@@ -1,6 +1,8 @@
 import React from 'react'
 import Status from './Status'
 import Ranking from './Ranking'
+import Canvas from './Canvas'
+import Chat from './Chat'
 
 const gamePlayStyle = {
     border: '2px solid #fc0373',
@@ -12,8 +14,8 @@ const GamePlay = props => <div style={gamePlayStyle}>
     <h1>Game Play Page</h1>
     <Status/>
     <Ranking/>
-    <h1>Canvas</h1>
-    <h1>Chat</h1>
+    <Canvas/>
+    <Chat/>
 </div>
 
 export default GamePlay
