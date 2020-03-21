@@ -10,7 +10,7 @@ let homeStyle = {
 
 const Home = props => (
     <div style={homeStyle}>
-        <h1>Title</h1>
+        <h1>Title  ... Home Page</h1>
         <Instruction/>
         <User/>
         <button>Play</button>
