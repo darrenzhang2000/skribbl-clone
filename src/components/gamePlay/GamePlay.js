@@ -1,4 +1,5 @@
 import React from 'react'
+import Status from './Status'
 
 const gamePlayStyle = {
     border: '2px solid #fc0373',
@@ -8,7 +9,7 @@ const gamePlayStyle = {
 
 const GamePlay = props => <div style={gamePlayStyle}>
     <h1>Game Play Page</h1>
-    <h1>Status</h1>
+    <Status/>
     <h1>Ranking</h1>
     <h1>Canvas</h1>
     <h1>Chat</h1>
