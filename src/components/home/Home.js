@@ -1,9 +1,22 @@
 import React from "react"
+import User from './User'
+
+let homeStyle = {
+    border: '2px solid #ce03fc',
+    width: '600px',
+    margin: 'auto'   
+}
+
+let instructionStyle = {
+    border: '2px solid #03b1fc',
+    width: '200px',
+    margin: 'auto'
+}
 
 const Home = props => (
-    <div>
+    <div style={homeStyle}>
         <h1>Title</h1>
-        <div>
+        <div style={instructionStyle}>
             <h3>Instructions</h3>
             <ol>
                 <li>Step 1</li>
@@ -11,7 +24,7 @@ const Home = props => (
                 <li>Step 3</li>
             </ol>
         </div>
-        <h1>User Card</h1>
+        <User/>
         <button>Play</button>
     </div>
 )
