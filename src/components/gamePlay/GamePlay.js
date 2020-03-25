@@ -3,6 +3,7 @@ import Status from './Status'
 import Ranking from './Ranking'
 import Canvas from './Canvas'
 import Chat from './Chat'
+import DrawArea from './drawing/DrawArea'
 
 const gamePlayStyle = {
     border: '2px solid #fc0373',
