@@ -17,7 +17,8 @@ class Chat extends Component {
         this.state = {
           response: false,
           endpoint: "http://127.0.0.1:4001",
-          message: ""
+          message: "",
+          handle: ""
         };
         this.textInput = React.createRef()
       }
@@ -37,7 +38,10 @@ class Chat extends Component {
     
     messageChangeHandler = e =>{
         this.setState({message: e.target.value})
-        console.log(this.state.message)
+    }
+
+    handleChangeHandler = e => {
+        this.setState({handle: e.target.value})
     }
     render() {
         return (
@@ -46,7 +50,7 @@ class Chat extends Component {
                     <div id="output"></div>
                     <div id="feedback"></div>
                 </div>
-                <input id="handle" type="text" placeholder="Handle" />
+                <input id="handle" type="text" placeholder="Handle" onChange={this.handleChangeHandler} value={this.state.handle} />
                 <input id="message" type="text" placeholder="Message" onChange={this.messageChangeHandler} value={this.state.message}/>
                 <button id="send" onClick={this.sendButtonHandler}>Send</button>
             </div>
