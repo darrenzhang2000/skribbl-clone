@@ -20,6 +20,11 @@ io.on("connection", socket => {
         console.log("prickly pear")
         io.sockets.emit("chat", data)
     })
+
+    socket.on('typing', (data)=>{
+        console.log('Quince')
+        socket.broadcast.emit('typing', data)
+    })
 })
 
 server.listen(port, () => console.log(`Listening on port ${port}`))

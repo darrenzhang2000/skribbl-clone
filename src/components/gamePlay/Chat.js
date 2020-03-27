@@ -19,21 +19,24 @@ class Chat extends Component {
             message: "",
             handle: "",
             output: "",
-            chatMessages: []
+            chatMessages: [],
+            typing: false,
+            typer: ""
         }
         this.outputRef = React.createRef()
         this.socket = socketIOClient("http://127.0.0.1:4001")
 
         this.socket.on("chat", data => {
-            console.log("asd")
+            this.setState({typing: false})
             this.setState({ chatMessages: [...this.state.chatMessages, data] })
-            console.log('message: ', this.state.chatMessages)
+            console.log("message: ", this.state.chatMessages)
         })
 
-        // this.socket.on('typing', (data)=>{
-        //     console.log('raspberries')
-        //     feedback.innerHTML = '<p><em>' + data.handle + ' is typing ...' + '</em></p>'
-        // })
+        this.socket.on("typing", data => {
+            console.log("raspberries")
+            this.setState({ typer: data.handle, typing: true })
+            console.log(this.state.handle + this.state.typing)
+        })
     }
 
     sendButtonHandler = () => {
@@ -42,10 +45,13 @@ class Chat extends Component {
             handle: this.state.handle,
             message: this.state.message
         })
+        this.setState({message: ""})
     }
 
     messageChangeHandler = e => {
         this.setState({ message: e.target.value })
+        this.socket.emit("typing", { handle: this.state.handle })
+        console.log("hi")
     }
 
     handleChangeHandler = e => {
@@ -62,7 +68,11 @@ class Chat extends Component {
                             </p>
                         ))}
                     </div>
-                    <div id="feedback"></div>
+                    <div id="feedback">
+                        {this.state.typing ? (
+                            <em>{this.state.typer} is typing...</em>
+                        ) : null}
+                    </div>
                 </div>
                 <input
                     id="handle"
