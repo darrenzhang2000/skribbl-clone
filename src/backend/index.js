@@ -1,27 +1,41 @@
-const webSocketsServerPort = 8000;
-const webSocketServer = require('websocket').server;
-const http = require('http');
-// Spinning the http server and the websocket server.
-const server = http.createServer();
-server.listen(webSocketsServerPort);
-const wsServer = new webSocketServer({
-  httpServer: server
+const express = require("express");
+const http = require("http");
+const socketIo = require("socket.io");
+const axios = require("axios");
+
+const port = process.env.PORT || 4001;
+const index = require("../routes/index");
+
+const app = express();
+app.use(index);
+
+const server = http.createServer(app);
+
+const io = socketIo(server); // < Interesting!
+
+const getApiAndEmit = async socket => {
+    try {
+      const res = await axios.get(
+        "https://api.darksky.net/forecast/3f01b9a659d41bfb354d5ddeef123b1d/43.7695,11.2558"
+      ); // Getting the data from DarkSky
+      socket.emit("FromAPI", res.data.currently.temperature); // Emitting a new message. It will be consumed by the client
+    } catch (error) {
+      console.error(`Error: ${error.code}`);
+    }
+  };
+
+let interval;
+
+io.on("connection", socket => {
+  console.log("New client connected");
+  if (interval) {
+    clearInterval(interval);
+  }
+  interval = setInterval(() => getApiAndEmit(socket), 10000);
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
 });
 
-// I'm maintaining all active connections in this object
-const clients = {};
+server.listen(port, () => console.log(`Listening on port ${port}`));
 
-// This code generates unique userid for everyuser.
-const getUniqueID = () => {
-  const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-  return s4() + s4() + '-' + s4();
-};
-
-wsServer.on('request', function(request) {
-  var userID = getUniqueID();
-  console.log((new Date()) + ' Recieved a new connection from origin ' + request.origin + '.');
-  // You can rewrite this part of the code to accept only the requests from allowed origin
-  const connection = request.accept(null, request.origin);
-  clients[userID] = connection;
-  console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(clients))
-});

@@ -7,10 +7,10 @@ import Client from './components/websocket/client';
 function App() {
   return (
     <div className="App">
+      <Client/>
       <Home/>
       <br/>
       <GamePlay/>
-      <Client/>
     </div>
   );
 }
