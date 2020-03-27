@@ -1,11 +1,15 @@
 import React from "react"
 import './Chat.css'
 
-// let chatStyle = {
-//     border: '2px solid #1505f5',
-//     width: '200px',
-//     margin: 'auto'
-// }
+/*
+    onClickHandler - emit message of type 'chat' to backend
+    backend listens - can be js, no need to change anything
+
+    onKeyPressHandler - emit message of type 'keypress'
+
+    question: how to have sockets constantly listen? 
+*/
+
 
 const Chat = props => (
     <div id="chat">

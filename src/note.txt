@@ -1,0 +1,6 @@
+Web Socket steps:
+1. Server connect to websockets
+2. Client connect to websockets
+3. js frontend listens for  'onclick' events on 'send message' button
+    - message is emitted to backend
+4. backend listens for messages and upon receiving the message, emits the message to everyone connected to the socket.
