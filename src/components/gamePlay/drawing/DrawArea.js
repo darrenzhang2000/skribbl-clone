@@ -62,7 +62,6 @@ class DrawArea extends React.Component {
     }
   
     render() {
-        console.log('drawing area lines:', this.state.lines)
       return (
         <div
           className="drawArea"

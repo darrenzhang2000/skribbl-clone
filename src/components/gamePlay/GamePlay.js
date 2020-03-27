@@ -15,8 +15,8 @@ const GamePlay = props => <div style={gamePlayStyle}>
     <h1>Game Play Page</h1>
     <Status/>
     <Ranking/>
-    <Canvas/>
     <Chat/>
+    <Canvas/>
 </div>
 
 export default GamePlay
